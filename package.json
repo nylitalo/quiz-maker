@@ -1,0 +1,33 @@
+{
+  "name": "quiz-maker",
+  "version": "1.0.0",
+  "description": "create and share quizzes",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server  --hot --inline --colors --port 3000 --open",
+    "build": "webpack --config webpack.config.js --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nylitalo/quiz-maker.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nylitalo/quiz-maker/issues"
+  },
+  "homepage": "https://github.com/nylitalo/quiz-maker#readme",
+  "dependencies": {
+    "@types/react": "^16.0.22",
+    "@types/react-dom": "^16.0.3",
+    "react": "^16.1.1",
+    "react-dom": "^16.1.1"
+  },
+  "devDependencies": {
+    "awesome-typescript-loader": "^3.3.0",
+    "source-map-loader": "^0.2.3",
+    "typescript": "^2.6.1",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4"
+  }
+}
