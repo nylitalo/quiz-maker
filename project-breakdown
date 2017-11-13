@@ -1,0 +1,13 @@
+Index
+  Create new Quiz - button
+New-Quiz
+  Add Quesion button
+    Select type - dropdown
+      text answear
+      alternatives
+        Add alternative answear
+    Finish question
+  Finish quiz
+  Share Quiz
+  
+  
