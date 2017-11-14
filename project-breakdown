@@ -11,3 +11,53 @@ New-Quiz
   Share Quiz
   
   
+
+
+
+Page: Start page
+logo and 2 buttons
+Button 1: create new quiz
+Redirects you to the create new quiz page
+Button 2: join quiz.
+Shows a text gfiled for the user to enter the id of the quiz user wants to join.
+When submitting, redirect user to start of Quiz.
+
+Page: Create new quiz 
+
+State:
+Questions: [
+Contains objects that has the question details.
+]
+
+Quiz name text field
+password field.
+Three empty questions - a quiz must have at least three questions.
+Button to add additional questions
+Starting with the fourth question each question will have a remove button next to it
+At the end there is a cancel and preview button.
+
+Button add question:
+Add a question to the questions array.
+This is an object that automatically receives an id.
+
+Button remove quiz.
+Removes the quiz object from the state quizzes array.
+
+Button cancel:
+Sets state quizzes array to empty and returns user to front-page
+
+Button preview:
+Shows the quiz as the end user will see it. 
+It will have a back button and a finish button.
+
+Button back:
+Takes the user back to the quiz setup.
+
+Button finish:
+Pushes the data to the database and redirects player to the page summarizing the quiz. Here is a URL that the player can share.
+
+
+Page: Quiz
+
+Text field where user can set their username
+When done, redirect to first question.
