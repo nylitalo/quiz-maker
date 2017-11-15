@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import {CreateNewQuiz} from './ui/CreateNewQuiz/CreateNewQuiz'
+import { Home } from './components/Home/Home';
 
 export interface Props {
 
@@ -9,7 +9,7 @@ export interface Props {
 export class App extends React.Component implements Props {
     render() {
         return (
-            <CreateNewQuiz />
-        )
+            <Home />
+        );
     }
 }
