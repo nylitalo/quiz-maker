@@ -12,7 +12,7 @@ export class JoinQuiz extends React.Component <Props, State> {
         super(props);
         this.state = {
             joinQuiz: false,
-            quizCode: ""
+            quizCode: ''
         };
     }
     
@@ -23,27 +23,29 @@ export class JoinQuiz extends React.Component <Props, State> {
     }
 
     handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if(this.state.quizCode.length < 5) {
+        if (this.state.quizCode.length < 5) {
             this.setState({
                 quizCode: event.currentTarget.value
-            })
+            });
         }
     }
-    //Need this to allow for deleting the firth character so that handleChange works again.
-    handleKeyUp = (event : React.KeyboardEvent<HTMLInputElement>) => {
+    // Need this to allow for deleting the firth character so that handleChange works again.
+    handleKeyUp = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (this.state.quizCode.length === 5) {
-            if(event.keyCode === 8) {
+            if (event.keyCode === 8) {
                 this.setState({
                     quizCode: this.state.quizCode.slice(0, -1)
-                })
+                });
             }
         }
     }
 
     render() {
-        let joinButton: any;
-        if(this.state.quizCode.length === 5) {
+        let joinButton: JSX.Element | null;
+        if (this.state.quizCode.length === 5) {
             joinButton = <input type="submit" value="Join"/>;
+        } else {
+            joinButton = null;
         }
 
         if (this.state.joinQuiz) {
@@ -51,16 +53,18 @@ export class JoinQuiz extends React.Component <Props, State> {
                 <div>
                     <label>
                         <input 
-                          type="submit" 
-                          value="Cancel"
-                          onClick={ this.handleClick } />
+                            type="submit" 
+                            value="Cancel" 
+                            onClick={this.handleClick} 
+                        />
                         Enter Quiz Code: 
                         </label>
-                    <input type="text"
-                      value={this.state.quizCode}
-                      onChange={e => this.handleChange(e)}
-                      onKeyUp={e => this.handleKeyUp(e)}
-                      />
+                    <input 
+                        type="text" 
+                        value={this.state.quizCode} 
+                        onChange={e => this.handleChange(e)} 
+                        onKeyUp={e => this.handleKeyUp(e)}
+                    />
                     {joinButton}
                 </div>
             );
@@ -69,9 +73,10 @@ export class JoinQuiz extends React.Component <Props, State> {
                 
                 <div>
                     <input 
-                    type="submit" 
-                    value="Join Quiz"
-                    onClick={ this.handleClick } />
+                        type="submit" 
+                        value="Join Quiz"
+                        onClick={this.handleClick} 
+                    />
                 </div>
             );
         }
