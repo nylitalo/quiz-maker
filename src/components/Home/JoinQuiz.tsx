@@ -18,7 +18,8 @@ export class JoinQuiz extends React.Component <Props, State> {
     
     handleClick = (): void => {
         this.setState({
-            joinQuiz: !this.state.joinQuiz
+            joinQuiz: !this.state.joinQuiz,
+            quizCode: ''
         });
     }
 
