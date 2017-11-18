@@ -1,22 +1,25 @@
 import * as React from 'react';
 
-export class CreateNewQuiz extends React.Component<any, any> {
-    constructor(props: any) {
+interface State {
+    questions: Object[];
+}
+
+interface Props {}
+
+interface SyntheticEvent {
+    preventDefault(): void;
+}
+
+export class CreateNewQuiz extends React.Component<Props, State> {
+    constructor(props: Props) {
         super(props);
         this.state = {
-            questions: [
-                {
-                    id: 0,
-                    question: '',
-                    answerType: '',
-                    answers: []
-                }
-            ]
+            questions: []
         };
     }
 
-    createNewQuestion = (e: any) => {
-        e.preventDefault();
+    createNewQuestion = (event: SyntheticEvent) => {
+        event.preventDefault();
         const newQuestion: {} = {
             id: this.state.questions.length,
             question: '',
@@ -30,7 +33,7 @@ export class CreateNewQuiz extends React.Component<any, any> {
 
     handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         event.persist();
-        this.setState((prevState, props) => {
+        this.setState((prevState) => {
             let newState = prevState;
             newState.questions[event.target.id].question = event.target.value;
             return {questions: newState.questions};
@@ -47,11 +50,22 @@ export class CreateNewQuiz extends React.Component<any, any> {
                     <label>Password</label>
                     <input type="text"/>
                     <br/>
-                    {this.state.questions.map((obj: any) => {
+                    {/*Replace the any type as soon as i figure out what to put there!*/}
+                    {this.state.questions.map((question: any) => {
                         return (
-                            <div key={obj.id}>
+                            <div key={question.id}>
                             <label>Question: </label>
-                            <input type="text" id={obj.id} value={obj.question} onChange={this.handleChange}/>
+                            <input type="text" id={question.id} value={question.question} onChange={this.handleChange}/>
+                            <br/>
+                            <label>Answers: </label>
+                            {question.answers.map((answer: {id: number, answer: string, rightAnswer: boolean}) => {
+                                return (
+                                    <div key={answer.id}>
+                                        <label>#{answer.id + 1}: </label>
+                                        <input type="text" value={answer.answer} onChange={this.handleChange}/>
+                                    </div>
+                                );
+                            })}
                             </div>
                         );
                     })}
