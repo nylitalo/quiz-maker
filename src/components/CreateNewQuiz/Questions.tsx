@@ -11,7 +11,7 @@ export class Questions extends React.Component<any, any> {
         super(props);
         this.state = {
             questions: []
-        }
+        };
     }
 
     handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,6 +51,6 @@ export class Questions extends React.Component<any, any> {
                 })}
                 <button onClick={this.createNewQuestion}>Add Question</button>
             </div>
-        )
+        );
     }
 }

@@ -4,32 +4,44 @@ interface SyntheticEvent {
     preventDefault(): void;
 }
 
-export class Answers extends React.Component<any, any> {
-    constructor(props: any) {
-        super(props)
+interface State {
+    answers: {
+        id: number,
+        answer: string,
+        correct: boolean
+    }[];
+}
+
+export class Answers extends React.Component<{}, State> {
+    constructor(props: {}) {
+        super(props);
         this.state = {
             answers: []
-        }
+        };
     }
 
-    createNewAnswer = (event:SyntheticEvent ) => {
+    createNewAnswer = (event: SyntheticEvent) => {
         event.preventDefault();
-        const newAnswer: {} = {
+        const newAnswer: {id: number, answer: string, correct: boolean} = {
             id: this.state.answers.length,
             answer: '',
             correct: false
-        }
-        this.setState({
-            answers: [...this.state.answers, newAnswer]
-        })
+        };
+        this.setState((prevState) => {
+            let newState = prevState;
+            newState.answers = [...newState.answers, newAnswer];
+            return {
+                answers: newState.answers
+            };
+        });
     }
 
     handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         event.persist();
-        this.setState((prevState, props) => {
+        this.setState((prevState) => {
             let newState = prevState;
             newState.answers[event.target.id].answer = event.target.value;
-            return {questions: newState.answers}
+            return {questions: newState.answers};
         });
     }
 
@@ -38,13 +50,13 @@ export class Answers extends React.Component<any, any> {
         this.setState((prevState) => {
             let newState = prevState;
             for (let i in newState.answers) {
-                if(i === event.target.id) {
+                if (i === event.target.id) {
                     newState.answers[event.target.id].correct = !newState.answers[event.target.id].correct;
                 } else {
                     newState.answers[i].correct = false;
                 }
             }
-            return {questions:newState.answers}
+            return {questions: newState.answers};
         });
     }
 
@@ -57,13 +69,23 @@ export class Answers extends React.Component<any, any> {
                     return (
                         <div key={answer.id}>
                             <label>#{answer.id + 1}: </label>
-                            <input type="text" value={answer.answer} id={answer.id} onChange={this.handleChange}/>
-                            <input type="checkbox" onChange={this.setCorrectAnswer} id={answer.id} checked={answer.correct}/>
+                            <input 
+                                type="text" 
+                                value={answer.answer} 
+                                id={answer.id} 
+                                onChange={this.handleChange}
+                            />
+                            <input 
+                                type="checkbox" 
+                                onChange={this.setCorrectAnswer} 
+                                id={answer.id} 
+                                checked={answer.correct}
+                            />
                         </div>
                     );
                 })}
                 <button onClick={this.createNewAnswer}>Add Answer</button>
             </div>
-        )
+        );
     }
 }
