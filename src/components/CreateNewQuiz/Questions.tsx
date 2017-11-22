@@ -1,12 +1,50 @@
-import * as React from 'react';
+import * as React from 'react'
+import * as redux from 'redux'
+import { connect } from 'react-redux'
+
+import { CreateQuestionAction } from '../../actions';
+import { Store } from '../../reducers';
 
 import { Answers } from './Answers';
+import { questions } from '../../reducers/questionsReducer';
 
 interface SyntheticEvent {
     preventDefault(): void;
 }
 
-export class Questions extends React.Component<any, any> {
+
+interface OwnProps {
+  }
+  
+  interface ConnectedState {
+    questions: [
+        {
+            id: number,
+            question: string,
+            answerType: string,
+            answers: Object[]
+        }
+    ]
+  }
+  
+  interface ConnectedDispatch {
+    addQuestion: (id: number, question: string, answerType: string, answers: Object[]) => void
+  }
+  
+  interface OwnState {}
+
+
+const mapStateToProps = (state: Store.All, ownProps: OwnProps): ConnectedState => ({
+    questions: state.questions
+})
+
+const mapDispatchToProps = (dispatch: redux.Dispatch<Store.All>): ConnectedDispatch => ({
+addQuestion: (id: number, question: string, answerType: string, answers: Object[]) => {
+    dispatch(CreateQuestionAction(id, question, answerType, answers));
+},
+})
+
+export class Questions extends React.Component<ConnectedState & ConnectedDispatch & OwnProps, OwnState> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -14,36 +52,23 @@ export class Questions extends React.Component<any, any> {
         };
     }
 
-    handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        event.persist();
-        this.setState((prevState, props) => {
-            let newState = prevState;
-            newState.questions[event.target.id].question = event.target.value;
-            return {questions: newState.questions};
-        });
-    }
-
     createNewQuestion = (event: SyntheticEvent) => {
         event.preventDefault();
-        const newQuestion: {} = {
-            id: this.state.questions.length,
-            question: '',
-            answerType: '',
-            answers: []
-        };
-        this.setState({
-            questions: [...this.state.questions, newQuestion]
-        });
+        const id: number = 0;
+        const question: string = '';
+        const answerType: string = '';
+        const answers: Object[] = [];
+        this.props.addQuestion(id, question, answerType, answers);
     }
 
     render() {
         return(
             <div>
-                {this.state.questions.map((question: any) => {
+                {this.props.questions.map((question: any) => {
                     return (
                         <div key={question.id}>
                         <label>Question: </label>
-                        <input type="text" id={question.id} value={question.question} onChange={this.handleChange}/>
+                        <input type="text" id={question.id} value={question.question} />
                         <br/>
                         <Answers />
                         </div>

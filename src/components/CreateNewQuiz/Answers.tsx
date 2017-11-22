@@ -5,7 +5,7 @@ interface SyntheticEvent {
 }
 
 interface State {
-    answers: {
+     answers: {
         id: number,
         answer: string,
         correct: boolean
@@ -22,16 +22,14 @@ export class Answers extends React.Component<{}, State> {
 
     createNewAnswer = (event: SyntheticEvent) => {
         event.preventDefault();
-        const newAnswer: {id: number, answer: string, correct: boolean} = {
+        let newAnswer: {id: number, answer: string, correct: boolean} = {
             id: this.state.answers.length,
             answer: '',
             correct: false
         };
         this.setState((prevState) => {
-            let newState = prevState;
-            newState.answers = [...newState.answers, newAnswer];
             return {
-                answers: newState.answers
+                answers: [...prevState.answers, newAnswer]
             };
         });
     }
